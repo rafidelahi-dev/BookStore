@@ -5,14 +5,16 @@ import router from "./routes/booksRoute.js";
 import mongoose from "mongoose";
 import cors from "cors"
 
+
 const app = express();
 app.use(express.json())
+
 
 //Two ways to use cors. Option 1: this way allows everything
 //app.use(cors())
 //Option 2: Allow Custom Origins
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-type'],
 }))

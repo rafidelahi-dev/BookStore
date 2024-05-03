@@ -12,10 +12,16 @@ const Home = () => {
   const [Loading, setLoading] = useState(false)
   useEffect(() => {
     setLoading(true)
-    axios.get('http://localhost:5555/books').then((res) => {
-      setBooks(res.data.data);
-      setLoading(false)
-    })
+    axios
+      .get('http://localhost:5555/books')
+      .then((res) => {
+        setBooks(res.data.data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error('Error fetching books:', error)
+        setLoading(false)
+      })
   }, [])
   return (
     <div className='p-4'>
