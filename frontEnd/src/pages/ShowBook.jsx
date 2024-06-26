@@ -13,10 +13,10 @@ const ShowBook = () => {
       // Check if id is defined
       setLoading(true)
       axios
-        .get(`http://localhost:5555/books/details/${id}`)
-        .then((response) => {
-          setBook(response.data)
-          console.log(response.data) // Use response.data directly here
+        .get(`http://localhost:5555/books/${id}`)
+        .then((res) => {
+          setBook(res.data)
+
           setLoading(false)
         })
         .catch((error) => {
@@ -25,6 +25,7 @@ const ShowBook = () => {
         })
     }
   , [id])
+  
 
   return (
     <div className='p-4'>
