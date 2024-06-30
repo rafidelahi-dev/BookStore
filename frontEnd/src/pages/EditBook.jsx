@@ -4,6 +4,8 @@ import Spinner from '../components/Spinner'
 import BackButton from '../components/BackButton'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import { useSnackbar } from 'notistack'
+
 
 const EditBook = () => {
   const [title, setTitle] = useState('')
@@ -11,6 +13,8 @@ const EditBook = () => {
   const [publishYear, setPublishYear] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const {enqueueSnackbar} = useSnackbar();
+
   const {id} = useParams()
   useEffect(() => {
     setLoading(true)
@@ -18,10 +22,13 @@ const EditBook = () => {
       setAuthor(res.data.author)
       setPublishYear(res.data.publishYear)
       setTitle(res.data.title)
+      
       setLoading(false)
+      enqueueSnackbar('Edited Successfully', { variant: 'success' })
     }).catch((error) => {
       setLoading(false)
       alert(`An error has occured. Pleace Check Console`);
+      
       console.log(error)
     })
   }, [])
@@ -37,11 +44,13 @@ const EditBook = () => {
       .put(`http://localhost:5555/books/${id}`, data)
       .then(() => {
         setLoading(false)
+        enqueueSnackbar('Edited Successfully', { variant: 'success' })
         navigate('/')
       })
       .catch((error) => {
         setLoading(false)
-        alert('An error happend. Please check console')
+        // alert('An error happend. Please check console')
+        enqueueSnackbar('Error', { variant: 'error' })
         console.log(error)
       })
   }
